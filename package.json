@@ -1,5 +1,5 @@
 {
-  "name": "open-native",
+  "name": "native-open",
   "version": "0.0.1",
   "description": "Open desktop applications from the browser",
   "source": "index.js",
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thomasraydeniscool/open-native.git"
+    "url": "git+https://github.com/thomasraydeniscool/native-open.git"
   },
   "author": "Thomas Rayden",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/thomasraydeniscool/open-native/issues"
+    "url": "https://github.com/thomasraydeniscool/native-open/issues"
   },
-  "homepage": "https://github.com/thomasraydeniscool/open-native#readme",
+  "homepage": "https://github.com/thomasraydeniscool/native-open#readme",
   "devDependencies": {
     "bowser": "2.7.0",
     "microbundle": "0.11.0",
