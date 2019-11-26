@@ -7,21 +7,17 @@ export default {
   input: "index.js",
   output: {
     file: "dist/index.min.js",
-    format: "iife",
-    name: "OpenNative"
+    format: "umd",
+    name: "openNative"
   },
   plugins: [
     babel({
       exclude: "node_modules/**"
     }),
-    resolve({
-      jsnext: true,
-      main: true,
-      browser: true
-    }),
+    resolve(),
     commonjs(),
     minify({
-      mangle: { topLevel: true }
+      comments: false
     })
   ]
 };
