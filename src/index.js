@@ -83,24 +83,20 @@ export function openNativeLink(uri, fallback) {
     throw new TypeError("fallback must be of type function");
   }
   const browser = bowser.getParser(window.navigator.userAgent);
-  const useFrame = browser.some([
-    {
-      desktop: {
-        safari: "*"
-      }
+  const useFrame = browser.satisfies({
+    desktop: {
+      safari: "*"
     }
-  ]);
-  const useFrameWCatch = browser.some([{ desktop: { firefox: "*" } }]);
-  const useFrameWCORS = browser.some([{ desktop: { opera: "*" } }]);
+  });
+  const useFrameWCatch = browser.satisfies({ desktop: { firefox: "*" } });
+  const useFrameWCORS = browser.satisfies({ desktop: { opera: "*" } });
   const useMsLaunch =
-    browser.some([
-      {
-        desktop: {
-          ie: "*"
-        }
-      },
-      { desktop: { edge: "*" } }
-    ]) && typeof window.navigator.msLaunchUri === "function";
+    browser.satisfies({
+      desktop: {
+        ie: "*",
+        edge: "*"
+      }
+    }) && typeof window.navigator.msLaunchUri === "function";
   if (useFrame) {
     methods.frame(uri, fallback);
   } else if (useFrameWCatch) {
