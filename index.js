@@ -1,5 +1,4 @@
-// https://github.com/developit/microbundle/issues/454#issue-470812265
-import * as bowser from "bowser";
+import bowser from "bowser";
 
 function armFallbackTimer(callback) {
   /**
@@ -34,7 +33,7 @@ const methods = {
   }
 };
 
-export function openNativeLink(uri, fallback) {
+function openNativeLink(uri, fallback) {
   if (typeof uri !== "string") {
     throw new TypeError("uri must be of type string");
   }
@@ -65,3 +64,7 @@ export function openNativeLink(uri, fallback) {
     methods.universal(uri, fallback);
   }
 }
+
+export default {
+  openNativeLink
+};
