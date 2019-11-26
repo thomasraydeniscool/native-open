@@ -33,7 +33,7 @@ const methods = {
   }
 };
 
-function openNativeLink(uri, fallback) {
+export function openNativeLink(uri, fallback) {
   if (typeof uri !== "string") {
     throw new TypeError("uri must be of type string");
   }
@@ -64,7 +64,3 @@ function openNativeLink(uri, fallback) {
     methods.universal(uri, fallback);
   }
 }
-
-export default {
-  openNativeLink
-};
