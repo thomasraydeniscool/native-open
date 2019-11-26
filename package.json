@@ -1,6 +1,6 @@
 {
   "name": "native-open",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Open desktop applications from the browser",
   "main": "dist/nativeopen.min.js",
   "browser": "dist/nativeopen.min.js",
