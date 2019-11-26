@@ -1,5 +1,5 @@
 // https://github.com/developit/microbundle/issues/454#issue-470812265
-import bowser from "bowser";
+import * as bowser from "bowser";
 
 function armFallbackTimer(callback) {
   /**
