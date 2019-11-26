@@ -21,9 +21,7 @@
     "url": "https://github.com/thomasraydeniscool/native-open/issues"
   },
   "homepage": "https://github.com/thomasraydeniscool/native-open#readme",
-  "dependencies": {
-    "ua-parser-js": "0.7.20"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "7.7.4",
     "@babel/preset-env": "7.7.4",

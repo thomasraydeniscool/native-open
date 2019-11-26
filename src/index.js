@@ -1,7 +1,3 @@
-const UAParser = require("ua-parser-js");
-
-const parser = new UAParser();
-
 function createHiddenFrame() {
   const frame = document.createElement("iframe");
   frame.style =
@@ -14,7 +10,7 @@ function blurFallbackTimer(callback) {
    * If the window hasn't lost focus in 5000ms
    * we know that the deep link has failed and we can call the fallback
    */
-  const delay = 5000;
+  const delay = 3000;
   const timer = setTimeout(callback, delay);
   window.addEventListener("blur", function() {
     clearTimeout(timer);
@@ -22,58 +18,20 @@ function blurFallbackTimer(callback) {
 }
 
 const methods = {
-  universal(uri, callback) {
-    /**
-     * Chrome and others technique
-     */
-    blurFallbackTimer(callback);
-    window.location.replace(uri);
-  },
-  frame(uri, callback) {
-    /**
-     * Safari technique
-     *
-     * Safari needs to be tricked with an iframe
-     */
-    blurFallbackTimer(callback);
+  universal(uri, fallback) {
+    blurFallbackTimer(fallback);
     const frame = createHiddenFrame();
     frame.src = uri;
     document.body.appendChild(frame);
   },
-  frameWCatch(uri, callback) {
-    /**
-     * Firefox technique
-     */
-    const frame = createHiddenFrame();
-    document.body.appendChild(frame);
-    try {
-      frame.contentWindow.location.href = uri;
-    } catch (err) {
-      console.error(err);
-      callback();
-    }
-  },
-  frameWCORS(uri, callback) {
-    /**
-     * Opera technique
-     */
-    const frame = createHiddenFrame();
-    frame.src = uri;
-    document.body.appendChild(frame);
-    setTimeout(function() {
-      try {
-        console.log(frame.contentWindow.location);
-      } catch (err) {
-        console.error(err);
-        callback();
+  msLaunch(uri, fallback) {
+    window.navigator.msLaunchUri(
+      uri,
+      function() {},
+      function() {
+        fallback();
       }
-    }, 0);
-  },
-  msLaunch(uri, callback) {
-    /**
-     * Microsoft Windows technique
-     */
-    window.navigator.msLaunchUri(uri, function() {}, callback);
+    );
   }
 };
 
@@ -84,27 +42,10 @@ export function openNativeLink(uri, fallback) {
   if (typeof fallback !== "function") {
     throw new TypeError("fallback must be of type function");
   }
-  switch (parser.getBrowser().name) {
-    case "Safari": {
-      methods.frame(uri, fallback);
-      break;
-    }
-    case "Firefox": {
-      methods.frameWCatch(uri, fallback);
-      break;
-    }
-    case "Opera": {
-      methods.frameWCORS(uri, fallback);
-      break;
-    }
-    default: {
-      if (typeof window.navigator.msLaunchUri === "function") {
-        methods.msLaunch(uri, fallback);
-      } else {
-        methods.universal(uri, fallback);
-      }
-      break;
-    }
+  if (typeof window.navigator.msLaunchUri === "function") {
+    methods.msLaunch(uri, fallback);
+  } else {
+    methods.universal(uri, fallback);
   }
 }
 
