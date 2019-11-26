@@ -2,13 +2,11 @@ const path = require("path");
 
 module.exports = {
   mode: "production",
-  entry: {
-    index: "./src/index.js"
-  },
+  entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
     // the filename template for entry chunks
-    filename: "[name].js",
+    filename: "nativeopen.min.js",
     // library import name
     library: "nativeopen",
     // universal module definition

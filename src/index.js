@@ -1,4 +1,6 @@
-const bowser = require("bowser");
+const UAParser = require("ua-parser-js");
+
+const parser = new UAParser();
 
 function createHiddenFrame() {
   const frame = document.createElement("iframe");
@@ -82,30 +84,30 @@ export function openNativeLink(uri, fallback) {
   if (typeof fallback !== "function") {
     throw new TypeError("fallback must be of type function");
   }
-  const browser = bowser.getParser(window.navigator.userAgent);
-  const useFrame = browser.satisfies({
-    desktop: {
-      safari: "*"
+  switch (parser.getBrowser().name) {
+    case "Safari": {
+      methods.useFrame(uri, fallback);
+      break;
     }
-  });
-  const useFrameWCatch = browser.satisfies({ desktop: { firefox: "*" } });
-  const useFrameWCORS = browser.satisfies({ desktop: { opera: "*" } });
-  const useMsLaunch =
-    browser.satisfies({
-      desktop: {
-        ie: "*",
-        edge: "*"
+    case "Firefox": {
+      methods.useFrameWCatch(uri, fallback);
+      break;
+    }
+    case "Opera": {
+      methods.useFrameWCORS(uri, fallback);
+      break;
+    }
+    default: {
+      if (typeof window.navigator.msLaunchUri === "function") {
+        methods.msLaunch(uri, fallback);
+      } else {
+        methods.universal(uri, fallback);
       }
-    }) && typeof window.navigator.msLaunchUri === "function";
-  if (useFrame) {
-    methods.frame(uri, fallback);
-  } else if (useFrameWCatch) {
-    methods.frameWCatch(uri, fallback);
-  } else if (useFrameWCORS) {
-    methods.frameWCORS(uri, fallback);
-  } else if (useMsLaunch) {
-    methods.msLaunch(uri, fallback);
-  } else {
-    methods.universal(uri, fallback);
+      break;
+    }
   }
 }
+
+export default {
+  openNativeLink
+};

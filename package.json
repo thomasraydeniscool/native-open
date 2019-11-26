@@ -2,9 +2,8 @@
   "name": "native-open",
   "version": "0.0.7",
   "description": "Open desktop applications from the browser",
-  "main": "dist/index.js",
-  "browser": "dist/index.js",
-  "module": "src/index.js",
+  "main": "dist/nativeopen.min.js",
+  "browser": "dist/nativeopen.min.js",
   "types": "index.d.ts",
   "browserslist": "> 0.25%, not dead",
   "scripts": {
@@ -23,11 +22,10 @@
   },
   "homepage": "https://github.com/thomasraydeniscool/native-open#readme",
   "dependencies": {
-    "bowser": "2.7.0"
+    "ua-parser-js": "0.7.20"
   },
   "devDependencies": {
     "@babel/core": "7.7.4",
-    "@babel/polyfill": "7.7.0",
     "@babel/preset-env": "7.7.4",
     "babel-loader": "8.0.6",
     "del-cli": "3.0.0",
