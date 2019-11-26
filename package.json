@@ -1,0 +1,29 @@
+{
+  "name": "open-native",
+  "version": "0.0.1",
+  "description": "Open desktop applications from the browser",
+  "source": "index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "unpkg": "dist/index.umd.js",
+  "scripts": {
+    "prepare": "run-s build",
+    "build": "microbundle",
+    "dev": "microbundle watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thomasraydeniscool/open-native.git"
+  },
+  "author": "Thomas Rayden",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thomasraydeniscool/open-native/issues"
+  },
+  "homepage": "https://github.com/thomasraydeniscool/open-native#readme",
+  "devDependencies": {
+    "bowser": "2.7.0",
+    "microbundle": "0.11.0",
+    "npm-run-all": "4.1.5"
+  }
+}
