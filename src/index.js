@@ -86,15 +86,15 @@ export function openNativeLink(uri, fallback) {
   }
   switch (parser.getBrowser().name) {
     case "Safari": {
-      methods.useFrame(uri, fallback);
+      methods.frame(uri, fallback);
       break;
     }
     case "Firefox": {
-      methods.useFrameWCatch(uri, fallback);
+      methods.frameWCatch(uri, fallback);
       break;
     }
     case "Opera": {
-      methods.useFrameWCORS(uri, fallback);
+      methods.frameWCORS(uri, fallback);
       break;
     }
     default: {
